@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    tools:context="com.ats.communication_admin.activity.AddInboxMessageActivity">
+
+    <Button
+        android:id="@+id/btnAddInboxMsg_Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/open_sans_bold"
+        android:padding="15dp"
+        android:text="Send"
+        android:textColor="@android:color/white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnAddInboxMsg_Submit"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:id="@+id/edAddInboxMsg_Route"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Select Route"
+                    android:inputType="none" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvAddInboxMsg_Route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:visibility="gone" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edAddInboxMsg_Fr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Select Franchise"
+                    android:inputType="none" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edAddInboxMsg_Title"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Title"
+                    android:maxLines="2" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edAddInboxMsg_Message"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:hint="Message"
+                    android:maxLines="4" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

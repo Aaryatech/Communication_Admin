@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ats.communication_admin.fragment.ComplaintFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvComplaint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/fabAddComplaint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white" />
+
+</RelativeLayout>

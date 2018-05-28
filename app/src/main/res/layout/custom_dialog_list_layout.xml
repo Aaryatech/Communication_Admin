@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llDialog_Bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="end">
+
+        <Button
+            android:layout_marginTop="5dp"
+            android:id="@+id/btnDialog_Submit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:text="Submit"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_alignParentTop="true"
+        android:id="@+id/edDialog_Search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@android:drawable/editbox_background_normal"
+        android:drawableRight="@drawable/ic_search"
+        android:hint="search"
+        android:padding="10dp" />
+
+    <ListView
+        android:layout_above="@id/llDialog_Bottom"
+        android:layout_below="@id/edDialog_Search"
+        android:id="@+id/lvDialog_List"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:divider="#00000000" />
+
+</RelativeLayout>

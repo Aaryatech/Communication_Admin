@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llCustomAfeReport"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:elevation="3dp"
+        app:cardElevation="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCustomAfeReport_FrName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:drawableLeft="@drawable/ic_action_name"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/open_sans_semi_bold"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvCustomAfeReport_Route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:drawableLeft="@drawable/ic_route"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:gravity="center_vertical"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvCustomAfeReport_Person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:drawableLeft="@drawable/ic_person"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/open_sans_regular"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCustomAfeReport_Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/open_sans_regular"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvCustomAfeReport_Score"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:gravity="end"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="25sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
