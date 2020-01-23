@@ -18,6 +18,7 @@ import com.ats.communication_admin.bean.LoginData;
 import com.ats.communication_admin.common.CommonDialog;
 import com.ats.communication_admin.constants.Constants;
 import com.ats.communication_admin.fcm.SharedPrefManager;
+import com.ats.communication_admin.util.PermissionUtil;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -41,6 +42,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tvForgotPassword = findViewById(R.id.tvLogin_ForgotPass);
         llLogin = findViewById(R.id.llLogin);
         llLogin.setOnClickListener(this);
+
+        if (PermissionUtil.checkAndRequestPermissions(this)) {
+
+        }
+
 
     }
 
@@ -137,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(Call<Info> call, Response<Info> response) {
                     Log.e("Response : ", "--------------------" + response.body());
                     commonDialog.dismiss();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -146,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onFailure(Call<Info> call, Throwable t) {
                     Log.e("Failure : ", "---------------------" + t.getMessage());
                     t.printStackTrace();
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
                     startActivity(intent);
                     finish();
 
@@ -154,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
 
         } else {
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
             startActivity(intent);
             finish();
         }

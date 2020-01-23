@@ -1,6 +1,9 @@
 package com.ats.communication_admin.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,9 +19,13 @@ import com.ats.communication_admin.adapter.FranchiseListAdapter;
 import com.ats.communication_admin.adapter.MessageAdapter;
 import com.ats.communication_admin.bean.FranchiseData;
 import com.ats.communication_admin.bean.FranchiseeList;
+import com.ats.communication_admin.bean.Info;
 import com.ats.communication_admin.bean.MessageData;
+import com.ats.communication_admin.bean.User;
 import com.ats.communication_admin.common.CommonDialog;
 import com.ats.communication_admin.constants.Constants;
+import com.ats.communication_admin.util.PermissionUtil;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -29,6 +36,8 @@ import retrofit2.Response;
 public class AFEIVisitActivity extends AppCompatActivity {
 
     RecyclerView rvFranchise;
+    int userId;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,31 @@ public class AFEIVisitActivity extends AppCompatActivity {
         setTitle("AFE Visit");
 
         rvFranchise = findViewById(R.id.rvFranchise);
+
+        if (PermissionUtil.checkAndRequestPermissions(this)) {
+
+        }
+
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json2 = pref.getString("User", "");
+        User userBean = gson.fromJson(json2, User.class);
+        Log.e("User Bean : ", "---------------" + userBean);
+        try {
+            if (userBean != null) {
+                userId = userBean.getId();
+                userName = userBean.getUsername();
+
+
+            } else {
+                startActivity(new Intent(AFEIVisitActivity.this, LoginActivity.class));
+                finish();
+            }
+        } catch (Exception e) {
+            Log.e("HomeActivity : ", " Exception : " + e.getMessage());
+            e.printStackTrace();
+        }
 
         getAllFranchise();
     }
@@ -115,8 +149,89 @@ public class AFEIVisitActivity extends AppCompatActivity {
             Intent intent = new Intent(AFEIVisitActivity.this, AfeDateWiseReportActivity.class);
             intent.putExtra("FrId", 0);
             startActivity(intent);
+        }else  if (id == R.id.menu_logout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AFEIVisitActivity.this, R.style.AlertDialogTheme);
+            builder.setTitle("Logout");
+            builder.setMessage("Are You Sure You Want To Logout?");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    updateUserToken(userId, "");
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
+                    final SharedPreferences.Editor editor = pref.edit();
+                    editor.clear();
+                    editor.commit();
+
+                    Intent intent = new Intent(AFEIVisitActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
+                    finish();
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        AlertDialog.Builder builder = new AlertDialog.Builder(AFEIVisitActivity.this, R.style.AlertDialogTheme);
+        builder.setTitle("Exit Application?");
+        builder.setMessage("");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    public void updateUserToken(int userId, String token) {
+
+        if (Constants.isOnline(this)) {
+            final CommonDialog commonDialog = new CommonDialog(AFEIVisitActivity.this, "Loading", "Please Wait...");
+            commonDialog.show();
+
+            Call<Info> infoCall = Constants.myInterface.updateFCMToken(1, userId, token);
+            infoCall.enqueue(new Callback<Info>() {
+                @Override
+                public void onResponse(Call<Info> call, Response<Info> response) {
+                    Log.e("Response : ", "--------------------" + response.body());
+                    commonDialog.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<Info> call, Throwable t) {
+                    commonDialog.dismiss();
+                    Log.e("Failure : ", "---------------------" + t.getMessage());
+                    t.printStackTrace();
+                }
+            });
+
+        }
+
+    }
+
+
 }

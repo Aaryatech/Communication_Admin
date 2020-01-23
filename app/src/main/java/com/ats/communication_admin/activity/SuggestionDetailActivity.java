@@ -44,7 +44,7 @@ import retrofit2.Response;
 public class SuggestionDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView rvSuggestionDetail;
-    DatabaseHandler db;
+        DatabaseHandler db;
     SuggestionDetailAdapter adapter;
 
     private LinearLayout llSend;

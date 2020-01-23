@@ -13,7 +13,7 @@
         android:layout_width="230dp"
         android:layout_height="200dp"
         android:layout_weight="1"
-        android:src="@drawable/logo" />
+        android:src="@drawable/img" />
 
     <ImageView
         android:layout_width="150dp"

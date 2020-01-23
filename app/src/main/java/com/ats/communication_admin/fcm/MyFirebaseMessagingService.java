@@ -66,14 +66,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             super.onMessageReceived(remoteMessage);
 
-           /* NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher).setDefaults(Notification.DEFAULT_ALL)
-                    .setContentTitle(remoteMessage.getData().get("title"))
-                    .setContentText(remoteMessage.getData().get("body"));
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.notify(0, builder.build());
-            builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-*/
+//            NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.mipmap.ic_launcher).setDefaults(Notification.DEFAULT_ALL)
+//                    .setContentTitle(remoteMessage.getData().get("title"))
+//                    .setContentText(remoteMessage.getData().get("body"));
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            manager.notify(0, builder.build());
+//            builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
         } else {
             Log.e("FIREBASE", "----------------------------------");
         }
@@ -110,7 +110,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
 
-            DatabaseHandler db = new DatabaseHandler(this);
+                DatabaseHandler db = new DatabaseHandler(this);
 
 
             if (tag.equalsIgnoreCase("nf")) {

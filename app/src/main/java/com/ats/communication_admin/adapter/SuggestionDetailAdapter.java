@@ -48,7 +48,7 @@ public class SuggestionDetailAdapter extends RecyclerView.Adapter<SuggestionDeta
         this.context = context;
     }
 
-    @Override
+      @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.custom_suggestion_detail_item_layout, parent, false);

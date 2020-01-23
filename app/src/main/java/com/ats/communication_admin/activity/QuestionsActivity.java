@@ -210,6 +210,7 @@ public class QuestionsActivity extends AppCompatActivity {
                             Toast.makeText(QuestionsActivity.this, "Success", Toast.LENGTH_SHORT).show();
                             commonDialog.dismiss();
                             Intent intent = new Intent(QuestionsActivity.this, AfeDateWiseReportActivity.class);
+                            intent.putExtra("FrId", frId);
                             startActivity(intent);
                             finish();
 

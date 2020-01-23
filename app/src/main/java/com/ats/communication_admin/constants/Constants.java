@@ -33,8 +33,8 @@ public class Constants {
     public static final String COMPLAINT_IMAGE_URL = "http://132.148.151.41:8080/uploads/COMPLAINT/";
     public static final String FEEDBACK_IMAGE_URL = "http://132.148.151.41:8080/uploads/FEEDBACK/";
 
-   // public static final String BASE_URL = "http://192.168.1.6:8098/";
-     public static final String BASE_URL = "http://132.148.151.41:8080/webapi/";
+    // public static final String BASE_URL = "http://192.168.1.6:8098/";
+    public static final String BASE_URL = "http://132.148.148.215:8080/webapi/";
 
     public static OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {

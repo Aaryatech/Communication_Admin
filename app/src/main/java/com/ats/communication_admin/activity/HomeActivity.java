@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +85,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        String token = SharedPrefManager.getmInstance(HomeActivity.this).getDeviceToken();
+        Log.e("Token : ", "---------" + token);
 
         fabAddInbox = findViewById(R.id.fabHome_AddInboxMsg);
 

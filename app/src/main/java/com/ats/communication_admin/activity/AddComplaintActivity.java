@@ -97,17 +97,17 @@ public class AddComplaintActivity extends AppCompatActivity implements View.OnCl
 
         }
 
-            SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
-            Gson gson = new Gson();
-            String json2 = pref.getString("User", "");
-            User userBean = gson.fromJson(json2, User.class);
-            try {
-                if (userBean != null) {
-                    userId = userBean.getId();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json2 = pref.getString("User", "");
+        User userBean = gson.fromJson(json2, User.class);
+        try {
+            if (userBean != null) {
+                userId = userBean.getId();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         try {
             Intent mIntent = getIntent();

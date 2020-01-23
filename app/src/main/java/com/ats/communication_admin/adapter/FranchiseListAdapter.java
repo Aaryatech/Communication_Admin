@@ -3,6 +3,8 @@ package com.ats.communication_admin.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.AFEIVisitActivity;
@@ -79,8 +82,8 @@ public class FranchiseListAdapter extends RecyclerView.Adapter<FranchiseListAdap
         try {
             Picasso.with(context)
                     .load(image)
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.logo)
+                    .placeholder(R.drawable.img)
+                    .error(R.drawable.img)
                     .into(holder.ivImage);
         } catch (Exception e) {
         }
@@ -89,6 +92,21 @@ public class FranchiseListAdapter extends RecyclerView.Adapter<FranchiseListAdap
             @Override
             public void onClick(View view) {
                 showDialog(fr.getFrId(), fr.getFrRouteId(), fr.getFrName());
+            }
+        });
+
+        holder.mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String number = fr.getFrMob();
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + number));
+                int result = context.checkCallingOrSelfPermission(android.Manifest.permission.CALL_PHONE);
+                if (result == PackageManager.PERMISSION_GRANTED) {
+                    context.startActivity(intent);
+                } else {
+                    Toast.makeText(context, "Device not supported", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
