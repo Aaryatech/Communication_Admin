@@ -133,7 +133,8 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
         ivHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FeedbackDetailActivity.this, ViewImageActivity.class);
+              //  Intent intent = new Intent(FeedbackDetailActivity.this, ViewImageActivity.class);
+                Intent intent = new Intent(FeedbackDetailActivity.this, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 startActivity(intent);
             }

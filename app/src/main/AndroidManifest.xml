@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_demo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.ImageZoomActivity"></activity>
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait" />

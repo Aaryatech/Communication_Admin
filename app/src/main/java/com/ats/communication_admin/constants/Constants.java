@@ -3,8 +3,6 @@ package com.ats.communication_admin.constants;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
-
 
 import com.ats.communication_admin.interfaces.InterfaceApi;
 
@@ -26,15 +24,16 @@ public class Constants {
 
     public static final String MY_PREF = "ADMIN_PREF";
 
-    public static final String FR_IMAGE_URL = "http://132.148.151.41:8080/uploads/FR/";
-    public static final String MESSAGE_IMAGE_URL = "http://132.148.151.41:8080/uploads/MSG/";
-    public static final String NOTIFICATION_IMAGE_URL = "http://132.148.151.41:8080/uploads/NOTIFICATION/";
-    public static final String SUGGESTION_IMAGE_URL = "http://132.148.151.41:8080/uploads/SUGGESTION/";
-    public static final String COMPLAINT_IMAGE_URL = "http://132.148.151.41:8080/uploads/COMPLAINT/";
-    public static final String FEEDBACK_IMAGE_URL = "http://132.148.151.41:8080/uploads/FEEDBACK/";
+    public static final String FR_IMAGE_URL = "http://107.180.95.11:8080/uploads/FR/";
+    public static final String MESSAGE_IMAGE_URL = "http://107.180.95.11:8080/uploads/MSG/";
+    public static final String NOTIFICATION_IMAGE_URL = "http://107.180.95.11:8080/uploads/NOTIFICATION/";
+    public static final String SUGGESTION_IMAGE_URL = "http://107.180.95.11:8080/uploads/SUGGESTION/";
+    public static final String COMPLAINT_IMAGE_URL = "http://107.180.95.11:8080/uploads/COMPLAINT/";
+    public static final String FEEDBACK_IMAGE_URL = "http://107.180.95.11:8080/uploads/FEEDBACK/";
 
-    // public static final String BASE_URL = "http://192.168.1.6:8098/";
-    public static final String BASE_URL = "http://132.148.148.215:8080/webapi/";
+
+   // public static final String BASE_URL = "http://132.148.148.215:8080/webapi/";
+    public static final String BASE_URL = "http://107.180.95.11:8080/webapi/";
 
     public static OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {

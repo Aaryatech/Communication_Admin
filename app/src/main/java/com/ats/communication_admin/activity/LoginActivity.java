@@ -143,7 +143,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(Call<Info> call, Response<Info> response) {
                     Log.e("Response : ", "--------------------" + response.body());
                     commonDialog.dismiss();
-                    Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+                    //Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -152,7 +153,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onFailure(Call<Info> call, Throwable t) {
                     Log.e("Failure : ", "---------------------" + t.getMessage());
                     t.printStackTrace();
-                    Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+                //    Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
 
@@ -160,7 +162,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             });
 
         } else {
-            Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+           // Intent intent = new Intent(LoginActivity.this, AFEIVisitActivity.class);
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         }

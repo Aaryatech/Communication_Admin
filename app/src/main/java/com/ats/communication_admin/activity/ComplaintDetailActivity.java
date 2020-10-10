@@ -136,7 +136,8 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
         ivHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ComplaintDetailActivity.this, ViewImageActivity.class);
+                //Intent intent = new Intent(ComplaintDetailActivity.this, ViewImageActivity.class);
+                Intent intent = new Intent(ComplaintDetailActivity.this, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 startActivity(intent);
             }

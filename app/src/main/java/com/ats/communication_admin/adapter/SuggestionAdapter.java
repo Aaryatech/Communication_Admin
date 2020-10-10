@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.AddSuggestionActivity;
+import com.ats.communication_admin.activity.ImageZoomActivity;
 import com.ats.communication_admin.activity.InnerTabActivity;
 import com.ats.communication_admin.activity.SuggestionDetailActivity;
 import com.ats.communication_admin.activity.ViewImageActivity;
@@ -103,7 +104,8 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.My
         holder.ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ViewImageActivity.class);
+               //  Intent intent = new Intent(context, ViewImageActivity.class);
+                 Intent intent = new Intent(context, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 context.startActivity(intent);
             }

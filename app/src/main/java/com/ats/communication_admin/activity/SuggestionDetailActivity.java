@@ -133,7 +133,8 @@ public class SuggestionDetailActivity extends AppCompatActivity implements View.
         ivHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SuggestionDetailActivity.this, ViewImageActivity.class);
+              // Intent intent = new Intent(SuggestionDetailActivity.this, ViewImageActivity.class);
+                Intent intent = new Intent(SuggestionDetailActivity.this, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 startActivity(intent);
             }

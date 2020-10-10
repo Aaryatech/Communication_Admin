@@ -173,6 +173,7 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivityForResult(intent, 102);
 
+
                     } else {
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         f = new File(folder + File.separator, "Camera.jpg");
@@ -240,7 +241,7 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
 
                 ivImage.setImageBitmap(myBitmap);
                 imagePath = uriFromPath.getPath();
-                tvImageName.setText("" + uriFromPath.getPath());
+                tvImageName.setText(uriFromPath.getPath());
 
                 try {
 
@@ -254,6 +255,8 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
                     // Log.e("Exception : ", "--------" + e.getMessage());
                     e.printStackTrace();
                 }
+
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -277,7 +280,7 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
         cursor.close();
 
         Bitmap bitm = shrinkBitmap(picturePath, 720, 720);
-        Log.e("Image Size : ---- ", " " + bitm.getByteCount());
+       // Log.e("Image Size : ---- ", " " + bitm.getByteCount());
 
         return bitm;
         // return BitmapFactory.decodeFile(picturePath, options);

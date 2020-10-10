@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.ComplaintDetailActivity;
+import com.ats.communication_admin.activity.ImageZoomActivity;
 import com.ats.communication_admin.activity.ViewImageActivity;
 import com.ats.communication_admin.bean.ComplaintData;
 import com.ats.communication_admin.constants.Constants;
@@ -91,7 +92,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
         holder.ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ViewImageActivity.class);
+            //   Intent intent = new Intent(context, ViewImageActivity.class);
+                Intent intent = new Intent(context, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 context.startActivity(intent);
             }

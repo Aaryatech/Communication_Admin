@@ -28,7 +28,7 @@ public class PermissionUtil {
                 Manifest.permission.CALL_PHONE);
 
         List<String> listPermissionsNeeded = new ArrayList<>();
-     /*   if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.CAMERA);
         }
         if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
@@ -37,7 +37,7 @@ public class PermissionUtil {
         }
         if (locationPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }*/
+        }
         if (callPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.CALL_PHONE);
         }

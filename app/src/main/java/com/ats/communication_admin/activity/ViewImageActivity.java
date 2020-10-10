@@ -73,7 +73,8 @@ public class ViewImageActivity extends AppCompatActivity implements View.OnTouch
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: // first finger down only
                 savedMatrix.set(matrix);
-                start.set(event.getX(), event.getY());
+               start.set(event.getX(), event.getY());
+
                 Log.d(TAG, "mode=DRAG"); // write to LogCat
                 mode = DRAG;
                 break;
