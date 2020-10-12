@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.LocalBroadcastManager;
@@ -119,8 +120,10 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar_ComplaintDetail);
         collapsingToolbar.setTitle(data.getTitle());
         collapsingToolbar.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
 
         tvText.setText("" + data.getDescription());
+        tvText.setSelected(true);
         tvFr.setText("" + data.getFrName());
 
         final String image = Constants.COMPLAINT_IMAGE_URL + data.getPhoto1();
@@ -170,6 +173,14 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
                 rvComplaintDetail.scrollToPosition(adapter.getItemCount() - 1);
         }
 
+        rvComplaintDetail.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                try{
+                    rvComplaintDetail.smoothScrollToPosition(adapter.getItemCount()-1);
+                }catch (Exception e){}
+            }
+        });
 
     }
 

@@ -126,9 +126,9 @@ public class InnerTabActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    return "Suggestion";
+                    return ""+getResources().getString(R.string.suggestion);
                 case 1:
-                    return "Complaint";
+                    return ""+getResources().getString(R.string.complaint);
                 case 2:
                     return "Feedback";
                 default:

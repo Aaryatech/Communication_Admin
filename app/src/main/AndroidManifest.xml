@@ -54,19 +54,19 @@
             android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.ComplaintDetailActivity"
             android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.FeedbackDetailActivity"
             android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.AddSuggestionActivity"
             android:parentActivityName=".activity.InnerTabActivity"

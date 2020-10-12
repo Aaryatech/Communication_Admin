@@ -32,7 +32,7 @@ public class Constants {
     public static final String FEEDBACK_IMAGE_URL = "http://107.180.95.11:8080/uploads/FEEDBACK/";
 
 
-   // public static final String BASE_URL = "http://132.148.148.215:8080/webapi/";
+    //public static final String BASE_URL = "http://192.168.2.6:8096/";
     public static final String BASE_URL = "http://107.180.95.11:8080/webapi/";
 
     public static OkHttpClient client = new OkHttpClient.Builder()

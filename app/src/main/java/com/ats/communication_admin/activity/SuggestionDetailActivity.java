@@ -116,8 +116,10 @@ public class SuggestionDetailActivity extends AppCompatActivity implements View.
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(data.getTitle());
         collapsingToolbar.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
 
         tvText.setText("" + data.getDescription());
+        tvText.setSelected(true);
         tvFr.setText("" + data.getFrName());
 
         final String image = Constants.SUGGESTION_IMAGE_URL + data.getPhoto();
@@ -169,6 +171,16 @@ public class SuggestionDetailActivity extends AppCompatActivity implements View.
                 rvSuggestionDetail.scrollToPosition(adapter.getItemCount() - 1);
         }*/
 
+
+        rvSuggestionDetail.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                try{
+                    rvSuggestionDetail.smoothScrollToPosition(adapter.getItemCount()-1);
+                }catch (Exception e){}
+            }
+        });
+
     }
 
     @Override
@@ -216,14 +228,17 @@ public class SuggestionDetailActivity extends AppCompatActivity implements View.
         suggestionDetail.setFrName(frName);
 
         int sugId = intent.getIntExtra("suggestionId", 0);
-        // int refreshId = intent.getIntExtra("refresh", 0);
+        int refreshId = intent.getIntExtra("refresh", 0);
         Log.e("Msg " + suggestionDetail, "Suggestion id " + sugId);
-        if (suggestionDetail != null && sugId != 0) {
 
-            suggestionDetailArrayList.add(suggestionDetail);
-            adapter.notifyDataSetChanged();
-            if (adapter.getItemCount() > 1) {
-                rvSuggestionDetail.scrollToPosition(adapter.getItemCount() - 1);
+        if (suggestionDetail != null && sugId != 0 && refreshId == 1) {
+
+            if (suggestionId == sugId) {
+                suggestionDetailArrayList.add(suggestionDetail);
+                adapter.notifyDataSetChanged();
+                if (adapter.getItemCount() > 1) {
+                    rvSuggestionDetail.scrollToPosition(adapter.getItemCount() - 1);
+                }
             }
         }
     }

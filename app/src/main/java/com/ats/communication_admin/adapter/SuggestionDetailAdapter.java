@@ -2,6 +2,8 @@ package com.ats.communication_admin.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,8 +18,11 @@ import com.ats.communication_admin.R;
 import com.ats.communication_admin.bean.SuggestionDetail;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by MAXADMIN on 30/1/2018.
@@ -48,7 +53,7 @@ public class SuggestionDetailAdapter extends RecyclerView.Adapter<SuggestionDeta
         this.context = context;
     }
 
-      @Override
+    @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.custom_suggestion_detail_item_layout, parent, false);
@@ -62,20 +67,34 @@ public class SuggestionDetailAdapter extends RecyclerView.Adapter<SuggestionDeta
 
         String dateDisplay = "";
         long millis = 0;
+        String dispDate = "";
         try {
+
+            Log.e("DEFAULT -", "-------------------> " + suggestion.getDate());
+
+            SimpleDateFormat sdfTime1 = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdfTime2 = new SimpleDateFormat("hh:mm a");
+
+            SimpleDateFormat sdfDate1 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdfDate2 = new SimpleDateFormat("dd MMM yyyy");
+
+            Date d = sdfTime1.parse(suggestion.getTime());
+            Date d1 = sdfDate1.parse(suggestion.getDate());
+
+            try {
+                dispDate = sdfDate2.format(d1.getTime()) + " " + sdfTime2.format(d.getTime());
+            } catch (Exception e) {
+            }
+
             String time = suggestion.getTime();
             int h = Integer.parseInt(time.substring(0, 2));
             int m = Integer.parseInt(time.substring(3, 5));
             int s = Integer.parseInt(time.substring(6, 7));
 
-            //Log.e("h : " + h, ",  m : " + m + ",  s : " + s);
-
             String date = suggestion.getDate();
             int dd = Integer.parseInt(date.substring(0, 2));
             int mm = Integer.parseInt(date.substring(3, 5));
             int yy = Integer.parseInt(date.substring(6, 10));
-
-            //Log.e("dd : " + dd, ",  mm : " + mm + ",  yy : " + yy);
 
             Calendar calDate = Calendar.getInstance();
             calDate.set(Calendar.DAY_OF_MONTH, dd);
@@ -105,28 +124,22 @@ public class SuggestionDetailAdapter extends RecyclerView.Adapter<SuggestionDeta
             }
 
 
-            //Log.e("DATE : ", "------------" + dateDisplay);
-
-
         } catch (Exception e) {
         }
-
 
         if (suggestion.getIsAdmin() == 1) {
             holder.llParent.setGravity(Gravity.RIGHT);
             holder.llParent.setPadding(45, 0, 0, 0);
             holder.llOther.setBackgroundColor(Color.parseColor("#cee6ef"));
-            holder.tvOther.setText(suggestion.getMessage());
-            holder.tvOtherTime.setText(dateDisplay);
-            holder.tvName.setText(suggestion.getFrName());
         } else {
             holder.llParent.setGravity(Gravity.LEFT);
             holder.llParent.setPadding(0, 0, 45, 0);
             holder.llOther.setBackgroundColor(Color.parseColor("#e9e9e9"));
-            holder.tvOther.setText(suggestion.getMessage());
-            holder.tvOtherTime.setText(dateDisplay);
-            holder.tvName.setText(suggestion.getFrName());
         }
+
+        holder.tvOther.setText(suggestion.getMessage());
+        holder.tvOtherTime.setText(dispDate);
+        holder.tvName.setText(suggestion.getFrName());
 
     }
 
@@ -134,5 +147,6 @@ public class SuggestionDetailAdapter extends RecyclerView.Adapter<SuggestionDeta
     public int getItemCount() {
         return suggestionDetailList.size();
     }
+
 
 }

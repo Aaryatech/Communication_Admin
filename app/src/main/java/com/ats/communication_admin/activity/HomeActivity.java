@@ -859,6 +859,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             getAllFeedback(db.getFeedbackLastId(), 0);
             getAllFeedbackDetails(userId, db.getFeedbackDetailLastId(), 0);
 
+            Log.e("SUGGESTION ","----------> "+db.getAllSQLiteSuggestions());
+
 //            tvMessagesCount.setText("" + db.getMessageUnreadCount());
 //            tvNoticesCount.setText("" + db.getNoticeUnreadCount());
             if (db.getNotificationUnreadCount() > 0) {

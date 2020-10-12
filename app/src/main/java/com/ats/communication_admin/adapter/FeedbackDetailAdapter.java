@@ -2,6 +2,8 @@ package com.ats.communication_admin.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,8 +18,11 @@ import com.ats.communication_admin.R;
 import com.ats.communication_admin.bean.FeedbackDetail;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by MAXADMIN on 1/2/2018.
@@ -63,20 +68,33 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
 
         String dateDisplay = "";
         long millis = 0;
+        String dispDate="";
         try {
+
+            SimpleDateFormat sdfTime1=new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdfTime2=new SimpleDateFormat("hh:mm a");
+
+            SimpleDateFormat sdfDate1 = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdfDate2=new SimpleDateFormat("dd MMM yyyy");
+
+            Date d=sdfTime1.parse(feedback.getTime());
+            Date d1=sdfDate1.parse(feedback.getDate());
+
+            try {
+                    dispDate = sdfDate2.format(d1.getTime()) + " " + sdfTime2.format(d.getTime());
+            } catch (Exception e) {
+            }
+
+
             String time = feedback.getTime();
             int h = Integer.parseInt(time.substring(0, 2));
             int m = Integer.parseInt(time.substring(3, 5));
             int s = Integer.parseInt(time.substring(6, 7));
 
-            //Log.e("h : " + h, ",  m : " + m + ",  s : " + s);
-
             String date = feedback.getDate();
             int dd = Integer.parseInt(date.substring(0, 2));
             int mm = Integer.parseInt(date.substring(3, 5));
             int yy = Integer.parseInt(date.substring(6, 10));
-
-            //Log.e("dd : " + dd, ",  mm : " + mm + ",  yy : " + yy);
 
             Calendar calDate = Calendar.getInstance();
             calDate.set(Calendar.DAY_OF_MONTH, dd);
@@ -87,7 +105,6 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
             calDate.set(Calendar.SECOND, s);
 
             millis = calDate.getTimeInMillis();
-
 
             Calendar todayCal = Calendar.getInstance();
             todayCal.set(Calendar.HOUR_OF_DAY, 0);
@@ -105,10 +122,6 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
                 dateDisplay = sdf1.format(calDate.getTimeInMillis());
             }
 
-
-            //Log.e("DATE : ", "------------" + dateDisplay);
-
-
         } catch (Exception e) {
         }
 
@@ -117,19 +130,15 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
             holder.llParent.setGravity(Gravity.RIGHT);
             holder.llParent.setPadding(45, 0, 0, 0);
             holder.llOther.setBackgroundColor(Color.parseColor("#cee6ef"));
-            holder.tvOther.setText(feedback.getMessage());
-            holder.tvOtherTime.setText(dateDisplay);
-            holder.tvName.setText(feedback.getFrName());
         } else {
             holder.llParent.setGravity(Gravity.LEFT);
             holder.llParent.setPadding(0, 0, 45, 0);
             holder.llOther.setBackgroundColor(Color.parseColor("#e9e9e9"));
-            holder.tvOther.setText(feedback.getMessage());
-            holder.tvName.setText(feedback.getFrName());
-            holder.tvOtherTime.setText(dateDisplay);
         }
 
-        Log.e("FEEDBACK DETAIL ", " : -----" + feedback);
+        holder.tvOther.setText(feedback.getMessage());
+        holder.tvName.setText(feedback.getFrName());
+        holder.tvOtherTime.setText(dispDate);
 
     }
 
@@ -137,6 +146,5 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
     public int getItemCount() {
         return feedbackDetailList.size();
     }
-
 
 }

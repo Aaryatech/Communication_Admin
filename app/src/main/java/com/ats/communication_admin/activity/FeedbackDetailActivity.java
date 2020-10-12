@@ -16,6 +16,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -110,14 +112,13 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
             data = db.getFeedback(feedbackId);
         }
 
-        Log.e("FEEDBACK DATA", "------------" + data);
-
-
         CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar_FeedbackDetail);
         collapsingToolbar.setTitle(data.getTitle());
         collapsingToolbar.setCollapsedTitleTextColor(Color.parseColor("#ffffff"));
+        collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
 
         tvText.setText("" + data.getDescription());
+        tvText.setSelected(true);
         tvFr.setText("" + data.getUserName());
 
         final String image = Constants.FEEDBACK_IMAGE_URL + data.getPhoto();
@@ -166,6 +167,15 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
             if (adapter.getItemCount() > 0)
                 rvFeedbackDetail.scrollToPosition(adapter.getItemCount() - 1);
         }*/
+
+        rvFeedbackDetail.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                try{
+                    rvFeedbackDetail.smoothScrollToPosition(adapter.getItemCount()-1);
+                }catch (Exception e){}
+            }
+        });
 
     }
 

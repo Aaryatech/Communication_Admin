@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">AFE Visit</string>
+    <string name="app_name">Admin</string>
+
+    <string name="suggestion">DAILY ISSUES</string>
+    <string name="complaint">CUSTOMER COMPLAINTS ONLY</string>
+    <string name="feedback">FEEDBACK</string>
+
 </resources>
