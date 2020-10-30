@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,19 +17,22 @@ import com.ats.communication_admin.activity.ComplaintDetailActivity;
 import com.ats.communication_admin.activity.ImageZoomActivity;
 import com.ats.communication_admin.activity.ViewImageActivity;
 import com.ats.communication_admin.bean.ComplaintData;
+import com.ats.communication_admin.bean.SuggestionData;
 import com.ats.communication_admin.constants.Constants;
 import com.ats.communication_admin.db.DatabaseHandler;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
  * Created by MAXADMIN on 1/2/2018.
  */
 
-public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyViewHolder> {
+public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyViewHolder> implements Filterable {
 
     private ArrayList<ComplaintData> complaintList;
+    private ArrayList<ComplaintData> complaintFilterList;
     private Context context;
     DatabaseHandler db;
 
@@ -51,6 +56,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
 
     public ComplaintAdapter(ArrayList<ComplaintData> complaintList, Context context) {
         this.complaintList = complaintList;
+        this.complaintFilterList = complaintList;
         this.context = context;
     }
 
@@ -64,11 +70,22 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final ComplaintData complaint = complaintList.get(position);
+        final ComplaintData complaint = complaintFilterList.get(position);
         holder.title.setText(complaint.getTitle());
         holder.desc.setText(complaint.getDescription());
-        holder.date.setText(complaint.getDate());
+       // holder.date.setText(complaint.getDate());
         holder.franchise.setText(complaint.getFrName());
+
+        String time=complaint.getTime();
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
+
+            time=sdf.format(sdf1.parse(complaint.getTime()));
+
+        }catch (Exception e){}
+
+        holder.date.setText(complaint.getDate()+" "+time);
 
         db = new DatabaseHandler(context);
 
@@ -120,7 +137,40 @@ public class ComplaintAdapter extends RecyclerView.Adapter<ComplaintAdapter.MyVi
 
     @Override
     public int getItemCount() {
-        return complaintList.size();
+        return complaintFilterList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    complaintFilterList = complaintList;
+                } else {
+                    ArrayList<ComplaintData> filteredList = new ArrayList<>();
+                    for (ComplaintData item : complaintList) {
+                        if (item.getFrName().toLowerCase().contains(charString.toLowerCase()) || item.getTitle().toLowerCase().contains(charString.toLowerCase()) || item.getDate().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(item);
+                        }
+                    }
+                    complaintFilterList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = complaintFilterList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                complaintFilterList = (ArrayList<ComplaintData>) filterResults.values;
+
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
 }

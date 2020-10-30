@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.ats.communication_admin.R;
@@ -34,13 +35,13 @@ import java.util.ArrayList;
 
 public class NotificationsFragment extends Fragment implements NotificationsInterface, View.OnClickListener {
 
-    private RecyclerView rvNotification;
-    NotificationAdapter adapter;
+    private  RecyclerView rvNotification;
+    private  NotificationAdapter adapter;
     private FloatingActionButton fab;
 
     DatabaseHandler db;
 
-    ArrayList<NotificationData> notificationArray;
+      ArrayList<NotificationData> notificationArray;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -120,16 +121,15 @@ public class NotificationsFragment extends Fragment implements NotificationsInte
     public void onResume() {
         super.onResume();
 
-        db.updateNotificationRead();
-
-        //notificationArray.clear();
-        notificationArray = db.getAllSqliteNotifications();
-        adapter.notifyDataSetChanged();
+//        db.updateNotificationRead();
+//
+//        notificationArray = db.getAllSqliteNotifications();
 //        adapter = new NotificationAdapter(notificationArray, getContext());
 //        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 //        rvNotification.setLayoutManager(mLayoutManager);
 //        rvNotification.setItemAnimator(new DefaultItemAnimator());
 //        rvNotification.setAdapter(adapter);
+
 
         // registering the receiver for new notification
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mRegistrationBroadcastReceiver,

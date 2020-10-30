@@ -20,6 +20,7 @@ import com.ats.communication_admin.constants.Constants;
 import com.ats.communication_admin.db.DatabaseHandler;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -67,8 +68,19 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyView
         final FeedbackData feedback = feedbackList.get(position);
         holder.title.setText(feedback.getTitle());
         holder.desc.setText(feedback.getDescription());
-        holder.date.setText(feedback.getDate());
+        //holder.date.setText(feedback.getDate());
         holder.name.setText(feedback.getUserName());
+
+        String time=feedback.getTime();
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
+
+            time=sdf.format(sdf1.parse(feedback.getTime()));
+
+        }catch (Exception e){}
+
+        holder.date.setText(feedback.getDate()+" "+time);
 
         db = new DatabaseHandler(context);
 

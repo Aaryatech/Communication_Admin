@@ -134,7 +134,7 @@ public class ComplaintDetailAdapter extends RecyclerView.Adapter<ComplaintDetail
             holder.llParent.setPadding(0, 0, 45, 0);
             holder.llOther.setBackgroundColor(Color.parseColor("#e9e9e9"));
         }
-
+        holder.tvName.setVisibility(View.VISIBLE);
         holder.tvOther.setText(complaint.getMessage());
         holder.tvOtherTime.setText(dispDate);
         holder.tvName.setText(complaint.getFrName());

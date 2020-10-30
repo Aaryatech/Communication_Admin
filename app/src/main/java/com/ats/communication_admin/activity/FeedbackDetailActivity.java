@@ -87,6 +87,13 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
         Gson gson = new Gson();
         String json2 = pref.getString("User", "");
@@ -134,7 +141,7 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
         ivHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  Intent intent = new Intent(FeedbackDetailActivity.this, ViewImageActivity.class);
+                //  Intent intent = new Intent(FeedbackDetailActivity.this, ViewImageActivity.class);
                 Intent intent = new Intent(FeedbackDetailActivity.this, ImageZoomActivity.class);
                 intent.putExtra("image", image);
                 startActivity(intent);
@@ -171,9 +178,10 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
         rvFeedbackDetail.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                try{
-                    rvFeedbackDetail.smoothScrollToPosition(adapter.getItemCount()-1);
-                }catch (Exception e){}
+                try {
+                    rvFeedbackDetail.smoothScrollToPosition(adapter.getItemCount() - 1);
+                } catch (Exception e) {
+                }
             }
         });
 
@@ -242,19 +250,17 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
             if (msg.isEmpty()) {
             } else {
 
-                FeedbackDetail feedbackDetail = new FeedbackDetail(0, feedbackId, msg, 1, userId, userName, "", "2018-01-01", "00:00:00", 1);
-                FeedbackDetail feedbackDetailDB = new FeedbackDetail(0, feedbackId, msg, 1, userId, userName, "", "2018-01-01", "00:00:00", 1);
-
-
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
                 SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
                 String date = sdf.format(Calendar.getInstance().getTimeInMillis());
+                String dateSqlite = sdf1.format(Calendar.getInstance().getTimeInMillis());
                 String time = sdfTime.format(Calendar.getInstance().getTimeInMillis());
 
-                Log.e("Feedback DETAIL", " LAST ID : " + db.getFeedbackDetailLastId());
+                FeedbackDetail feedbackDetail = new FeedbackDetail(0, feedbackId, msg, 1, userId, userName, "", dateSqlite, time, 1);
+                FeedbackDetail feedbackDetailDB = new FeedbackDetail(0, feedbackId, msg, 1, userId, userName, "", date, time, 1);
+
                 int lastId = db.getFeedbackDetailLastId() + 1;
-                feedbackDetail.setTime(time);
-                feedbackDetail.setDate(date);
                 feedbackDetail.setFeedbackDetailId(lastId);
 
                 db.addFeedbackDetails(feedbackDetail);
@@ -264,7 +270,6 @@ public class FeedbackDetailActivity extends AppCompatActivity implements View.On
                 adapter.notifyDataSetChanged();
                 if (adapter.getItemCount() > 0)
                     rvFeedbackDetail.scrollToPosition(adapter.getItemCount() - 1);
-
 
                 saveFeedbackDetail(feedbackDetailDB);
 

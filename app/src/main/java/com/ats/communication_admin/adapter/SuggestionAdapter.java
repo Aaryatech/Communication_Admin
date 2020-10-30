@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -33,7 +35,9 @@ import com.ats.communication_admin.db.DatabaseHandler;
 import com.ats.communication_admin.fragment.SuggestionFragment;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,11 +47,13 @@ import retrofit2.Response;
  * Created by MAXADMIN on 30/1/2018.
  */
 
-public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.MyViewHolder> {
+public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.MyViewHolder> implements Filterable {
 
     private ArrayList<SuggestionData> suggestionList;
+    private ArrayList<SuggestionData> suggestionFilteredList;
     private Context context;
     DatabaseHandler db;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, desc, date, count, franchise;
@@ -69,6 +75,7 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.My
 
     public SuggestionAdapter(ArrayList<SuggestionData> suggestionList, Context context) {
         this.suggestionList = suggestionList;
+        this.suggestionFilteredList = suggestionList;
         this.context = context;
     }
 
@@ -82,11 +89,22 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.My
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        final SuggestionData suggestion = suggestionList.get(position);
+        final SuggestionData suggestion = suggestionFilteredList.get(position);
         holder.title.setText(suggestion.getTitle());
         holder.desc.setText(suggestion.getDescription());
-        holder.date.setText(suggestion.getDate());
+       // holder.date.setText(suggestion.getDate());
         holder.franchise.setText(suggestion.getFrName());
+
+        String time=suggestion.getTime();
+        try{
+            SimpleDateFormat sdf=new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
+
+            time=sdf.format(sdf1.parse(suggestion.getTime()));
+
+        }catch (Exception e){}
+
+        holder.date.setText(suggestion.getDate()+" "+time);
 
         Log.e("Suggestion Adapter", "----------" + suggestion);
         db = new DatabaseHandler(context);
@@ -133,10 +151,41 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.My
 
     @Override
     public int getItemCount() {
-        return suggestionList.size();
+        return suggestionFilteredList.size();
     }
 
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    suggestionFilteredList = suggestionList;
+                } else {
+                    ArrayList<SuggestionData> filteredList = new ArrayList<>();
+                    for (SuggestionData item : suggestionList) {
+                        if (item.getFrName().toLowerCase().contains(charString.toLowerCase()) || item.getTitle().toLowerCase().contains(charString.toLowerCase()) || item.getDate().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(item);
+                        }
+                    }
+                    suggestionFilteredList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = suggestionFilteredList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                suggestionFilteredList = (ArrayList<SuggestionData>) filterResults.values;
+
+                notifyDataSetChanged();
+            }
+        };
+    }
 
 
 }

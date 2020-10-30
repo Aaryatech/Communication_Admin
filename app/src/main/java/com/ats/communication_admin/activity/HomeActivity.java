@@ -490,10 +490,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             Log.e("HOME : ", "INSERTING Suggestion Details---------------------------");
 
                             for (int i = 0; i < data.size(); i++) {
+                                data.get(i).setRead(1);
                                 db.addSuggestionDetails(data.get(i));
                             }
 
                             if (db.getSuggestionDetailUnreadCount() > 0) {
+                                Log.e("UNREAD ","------------------------------ "+db.getUnreadSuggestionDetails());
                                 tvSuggestionIndicator.setVisibility(View.VISIBLE);
                             } else {
                                 tvSuggestionIndicator.setVisibility(View.GONE);

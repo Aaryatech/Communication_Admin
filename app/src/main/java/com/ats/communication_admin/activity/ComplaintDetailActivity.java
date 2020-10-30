@@ -60,7 +60,7 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
     ComplaintData data = new ComplaintData();
 
     int userId, refresh;
-    String userName="";
+    String userName = "";
 
     ArrayList<ComplaintDetail> complaintDetailArrayList;
 
@@ -88,6 +88,13 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
         Toolbar toolbar = findViewById(R.id.toolbar_ComplaintDetail);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.MY_PREF, MODE_PRIVATE);
         Gson gson = new Gson();
@@ -176,9 +183,10 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
         rvComplaintDetail.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
-                try{
-                    rvComplaintDetail.smoothScrollToPosition(adapter.getItemCount()-1);
-                }catch (Exception e){}
+                try {
+                    rvComplaintDetail.smoothScrollToPosition(adapter.getItemCount() - 1);
+                } catch (Exception e) {
+                }
             }
         });
 
@@ -223,7 +231,7 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
 
         String frName = intent.getStringExtra("frName");
         complaintDetail.setFrName(frName);
-        Log.e("ComplaintDetail : ","----------------"+complaintDetail);
+        Log.e("ComplaintDetail : ", "----------------" + complaintDetail);
 
         int cId = intent.getIntExtra("complaintId", 0);
         int refreshId = intent.getIntExtra("refresh", 0);
@@ -248,19 +256,18 @@ public class ComplaintDetailActivity extends AppCompatActivity implements View.O
             if (msg.isEmpty()) {
             } else {
 
-                ComplaintDetail complaintDetail = new ComplaintDetail(0, complaintId, msg, "", "2018-1-1", "00:00:00", 1, userId, userName, 1);
-                ComplaintDetail complaintDetailDB = new ComplaintDetail(0, complaintId, msg, "", "2018-1-1", "00:00:00", 1, userId, userName, 1);
-
-
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
                 String date = sdf.format(Calendar.getInstance().getTimeInMillis());
+                String dateDB = sdf1.format(Calendar.getInstance().getTimeInMillis());
                 String time = sdfTime.format(Calendar.getInstance().getTimeInMillis());
+
+                ComplaintDetail complaintDetail = new ComplaintDetail(0, complaintId, msg, "", date, time, 1, userId, userName, 1);
+                ComplaintDetail complaintDetailDB = new ComplaintDetail(0, complaintId, msg, "", dateDB, time, 1, userId, userName, 1);
 
                 Log.e("COMPLAINT DETAIL", " LAST ID : " + db.getComplaintDetailLastId());
                 int lastId = db.getComplaintDetailLastId() + 1;
-                complaintDetail.setTime(time);
-                complaintDetail.setDate(date);
                 complaintDetail.setCompDetailId(lastId);
 
                 db.addComplaintDetails(complaintDetail);

@@ -114,6 +114,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:textIsSelectable="true"
                     android:hint="Type a message"
                     android:maxLines="3"
                     android:textColor="@android:color/black"

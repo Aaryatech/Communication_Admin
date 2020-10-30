@@ -68,7 +68,7 @@ public class AddSuggestionActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_suggestion);
 
-              edTitle = findViewById(R.id.edAddSuggestion_Title);
+        edTitle = findViewById(R.id.edAddSuggestion_Title);
         edDesc = findViewById(R.id.edAddSuggestion_Desc);
         ivCamera = findViewById(R.id.ivAddSuggestion_Camera);
         ivImage = findViewById(R.id.ivAddSuggestion_Image);
@@ -116,7 +116,7 @@ public class AddSuggestionActivity extends AppCompatActivity implements View.OnC
 
         createFolder();
 
-       // db = new DatabaseHandler(this);
+        // db = new DatabaseHandler(this);
 
 
     }
@@ -141,11 +141,11 @@ public class AddSuggestionActivity extends AppCompatActivity implements View.OnC
                     imagePath = "";
                 }
 
-                Calendar todayCal=Calendar.getInstance();
-                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat sdf1=new SimpleDateFormat("HH:mm:ss");
-                String currentDate=sdf.format(todayCal.getTimeInMillis());
-                String currentTime=sdf1.format(todayCal.getTimeInMillis());
+                Calendar todayCal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("HH:mm:ss");
+                String currentDate = sdf.format(todayCal.getTimeInMillis());
+                String currentTime = sdf1.format(todayCal.getTimeInMillis());
 
                 SuggestionData data = new SuggestionData(sgId, title, imagePath, desc, currentDate, currentTime, userId, 0);
 

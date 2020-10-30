@@ -69,22 +69,31 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 //        String date = sdf.format(dtVal);
         holder.date.setText("" + notification.getDate());
 
-        final String image = Constants.NOTIFICATION_IMAGE_URL + notification.getPhoto();
+        String image=Constants.NOTIFICATION_IMAGE_URL + notification.getPhoto();
+        if (notification.getSubject().equalsIgnoreCase("New cake added to album")){
+            image = Constants.ALBUM_IMAGE_URL + notification.getPhoto();
+        }else{
+            image = Constants.NOTIFICATION_IMAGE_URL + notification.getPhoto();
+        }
+
+        //final String image = Constants.NOTIFICATION_IMAGE_URL + notification.getPhoto();
         try {
             Picasso.with(context)
                     .load(image)
                     .placeholder(R.drawable.logo)
                     .error(R.drawable.logo)
+                    .resize(150,150)
                     .into(holder.ivImage);
         } catch (Exception e) {
         }
 
+        final String finalImage = image;
         holder.ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
              //   Intent intent = new Intent(context, ViewImageActivity.class);
                 Intent intent = new Intent(context, ImageZoomActivity.class);
-                intent.putExtra("image", image);
+                intent.putExtra("image", finalImage);
                 context.startActivity(intent);
             }
         });

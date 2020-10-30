@@ -4,21 +4,44 @@
     android:layout_height="match_parent"
     tools:context="com.ats.communication_admin.fragment.ComplaintFragment">
 
+    <LinearLayout
+        android:id="@+id/llSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/border_layout"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/edSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="Search"
+            android:maxLines="1"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/cardview_dark_background" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvComplaint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/llSearch" />
 
 
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
-        android:id="@+id/fabAddComplaint"
+        android:id="@+id/fabSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@android:drawable/ic_menu_search"
         android:tint="@android:color/white" />
 
 </RelativeLayout>

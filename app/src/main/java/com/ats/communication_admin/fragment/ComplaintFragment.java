@@ -12,10 +12,15 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.AddComplaintActivity;
@@ -34,7 +39,9 @@ public class ComplaintFragment extends Fragment implements ComplaintInterface, V
 
     private RecyclerView rvComplaint;
     DatabaseHandler db;
-    FloatingActionButton fabAdd;
+    private FloatingActionButton fabSearch;
+    private EditText edSearch;
+    private LinearLayout llSearch;
 
 
     ComplaintAdapter adapter;
@@ -51,8 +58,10 @@ public class ComplaintFragment extends Fragment implements ComplaintInterface, V
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
 
         rvComplaint = view.findViewById(R.id.rvComplaint);
-        fabAdd = view.findViewById(R.id.fabAddComplaint);
-        fabAdd.setOnClickListener(this);
+        fabSearch = view.findViewById(R.id.fabSearch);
+        edSearch = view.findViewById(R.id.edSearch);
+        llSearch = view.findViewById(R.id.llSearch);
+        fabSearch.setOnClickListener(this);
 
         db = new DatabaseHandler(getActivity());
 
@@ -82,6 +91,24 @@ public class ComplaintFragment extends Fragment implements ComplaintInterface, V
                 }
             }
         };
+
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         return view;
     }
@@ -167,8 +194,14 @@ public class ComplaintFragment extends Fragment implements ComplaintInterface, V
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.fabAddComplaint) {
-            startActivity(new Intent(getContext(), AddComplaintActivity.class));
+        if (view.getId() == R.id.fabSearch) {
+           // startActivity(new Intent(getContext(), AddComplaintActivity.class));
+            if (llSearch.getVisibility()==View.VISIBLE){
+                llSearch.setVisibility(View.GONE);
+            }else if (llSearch.getVisibility()==View.GONE){
+                llSearch.setVisibility(View.VISIBLE);
+            }
+
         }
     }
 

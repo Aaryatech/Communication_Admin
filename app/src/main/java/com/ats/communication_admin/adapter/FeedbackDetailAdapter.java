@@ -68,20 +68,20 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
 
         String dateDisplay = "";
         long millis = 0;
-        String dispDate="";
+        String dispDate = "";
         try {
-
-            SimpleDateFormat sdfTime1=new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat sdfTime2=new SimpleDateFormat("hh:mm a");
+            Log.e("SERVER -- ", "" + feedback.getDate());
+            SimpleDateFormat sdfTime1 = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat sdfTime2 = new SimpleDateFormat("hh:mm a");
 
             SimpleDateFormat sdfDate1 = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat sdfDate2=new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat sdfDate2 = new SimpleDateFormat("dd MMM yyyy");
 
-            Date d=sdfTime1.parse(feedback.getTime());
-            Date d1=sdfDate1.parse(feedback.getDate());
+            Date d = sdfTime1.parse(feedback.getTime());
+            Date d1 = sdfDate1.parse(feedback.getDate());
 
             try {
-                    dispDate = sdfDate2.format(d1.getTime()) + " " + sdfTime2.format(d.getTime());
+                dispDate = sdfDate2.format(d1.getTime()) + " " + sdfTime2.format(d.getTime());
             } catch (Exception e) {
             }
 
@@ -139,6 +139,7 @@ public class FeedbackDetailAdapter extends RecyclerView.Adapter<FeedbackDetailAd
         holder.tvOther.setText(feedback.getMessage());
         holder.tvName.setText(feedback.getFrName());
         holder.tvOtherTime.setText(dispDate);
+        Log.e("MSG - ", "" + feedback.getMessage() + "   " + dispDate);
 
     }
 

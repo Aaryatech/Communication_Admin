@@ -21,7 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_demo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ImageZoomActivity"></activity>
+        <activity
+            android:name=".activity.ImageZoomActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:screenOrientation="portrait" />
@@ -51,19 +54,16 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".activity.SuggestionDetailActivity"
-            android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.ComplaintDetailActivity"
-            android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.FeedbackDetailActivity"
-            android:parentActivityName=".activity.InnerTabActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />

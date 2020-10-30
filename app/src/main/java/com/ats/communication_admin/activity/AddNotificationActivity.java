@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,9 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,6 +51,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class AddNotificationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -123,7 +127,10 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
                     imagePath = "";
                 }
 
-                NotificationData data = new NotificationData(0, title, userId, "", desc, image, "2018-1-1", "00:00:00", 0, 1);
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                String date=sdf.format(new Date().getTime());
+
+                NotificationData data = new NotificationData(0, title, userId, "", desc, image, date, "00:00:00", 0, 1);
 
                 if (imagePath.isEmpty()) {
                     Log.e("ImagePath : ", "------- Empty");
@@ -360,9 +367,11 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
                             } else {
                                 Toast.makeText(AddNotificationActivity.this, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e("NotificationData  : ", " SUCCESS");
-                                // db.addSuggestion(suggestionData);
-                                db.deleteAllComplaint();
+
+                                db.deleteAllNotifications();
                                 getAllNotification(db.getNotificationLastId());
+
+
                             }
                         } else {
                             commonDialog.dismiss();
@@ -409,7 +418,13 @@ public class AddNotificationActivity extends AppCompatActivity implements View.O
 
                             for (int i = 0; i < data.size(); i++) {
                                 db.addNotifications(data.get(i));
+
                             }
+
+                            Intent pushNotificationIntent = new Intent();
+                            pushNotificationIntent.setAction("REFRESH_DATA");
+                            LocalBroadcastManager.getInstance(AddNotificationActivity.this).sendBroadcast(pushNotificationIntent);
+
                             finish();
 
                         } else {

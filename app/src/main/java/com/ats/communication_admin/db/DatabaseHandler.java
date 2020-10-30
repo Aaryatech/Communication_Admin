@@ -651,6 +651,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return lastId;
     }
 
+    public void deleteAllNotifications() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NOTIFICATION);
+        //Log.e("DELETED : ", "-----------------------COMPLAINT");
+    }
+
+
     //----------------------------------SUGGESTION------------------------------------
 
     public void addSuggestion(SuggestionData suggestion) {
@@ -861,12 +868,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int count = 0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_SUGGESTION_DETAILS + " WHERE " + SD_READ + "=0", null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_SUGGESTION_DETAILS + " as sd,"+ TABLE_SUGGESTION + " as sh WHERE sd." + SD_READ + "=0 AND sd."+SD_SG_ID+"=sh."+SG_ID, null);
         if (cursor != null && cursor.moveToFirst()) {
             count = cursor.getInt(0);
             cursor.close();
         }
         return count;
+    }
+
+
+    public ArrayList<SuggestionDetail> getUnreadSuggestionDetails() {
+        ArrayList<SuggestionDetail> suggestionDetailList = new ArrayList<>();
+
+        String query = "SELECT * FROM " + TABLE_SUGGESTION_DETAILS + " WHERE " + SD_READ + "=0";
+
+        //Log.e("QUERY : ", "-------" + query);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                SuggestionDetail suggestion = new SuggestionDetail();
+                suggestion.setSuggestionDetailId(cursor.getInt(0));
+                suggestion.setSuggestionId(cursor.getInt(1));
+                suggestion.setMessage(cursor.getString(2));
+                suggestion.setIsAdmin(cursor.getInt(3));
+                suggestion.setFrId(cursor.getInt(4));
+                suggestion.setFrName(cursor.getString(5));
+                suggestion.setPhoto(cursor.getString(6));
+                suggestion.setDate(cursor.getString(7));
+                suggestion.setTime(cursor.getString(8));
+                suggestion.setRead(cursor.getInt(9));
+
+                suggestionDetailList.add(suggestion);
+            } while (cursor.moveToNext());
+        }
+        return suggestionDetailList;
     }
 
     public int getSuggestionDetailUnreadCount(int suggestionId) {
@@ -1083,7 +1121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int count = 0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_COMPLAINT_DETAILS + " WHERE " + CD_READ + "=0", null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_COMPLAINT_DETAILS + " as cd,"+TABLE_COMPLAINT+" as ch WHERE cd." + CD_READ + "=0 AND cd."+CD_C_ID+"=ch."+C_ID, null);
         if (cursor != null && cursor.moveToFirst()) {
             count = cursor.getInt(0);
             cursor.close();
@@ -1297,7 +1335,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int count = 0;
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_FEEDBACK_DETAILS + " WHERE " + FD_READ + "=0", null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_FEEDBACK_DETAILS + " as fd,"+TABLE_FEEDBACK+" as fh WHERE fd." + FD_READ + "=0 AND fd."+FD_F_ID+"=fh."+F_ID, null);
         if (cursor != null && cursor.moveToFirst()) {
             count = cursor.getInt(0);
             cursor.close();

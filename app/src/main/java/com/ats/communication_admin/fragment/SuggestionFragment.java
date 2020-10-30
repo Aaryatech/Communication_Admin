@@ -3,58 +3,42 @@ package com.ats.communication_admin.fragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.AddSuggestionActivity;
-import com.ats.communication_admin.activity.InnerTabActivity;
-import com.ats.communication_admin.activity.SuggestionDetailActivity;
 import com.ats.communication_admin.adapter.SuggestionAdapter;
-import com.ats.communication_admin.adapter.SuggestionDetailAdapter;
-import com.ats.communication_admin.bean.Info;
 import com.ats.communication_admin.bean.SuggestionData;
-import com.ats.communication_admin.bean.SuggestionDetail;
-import com.ats.communication_admin.common.CommonDialog;
-import com.ats.communication_admin.constants.Constants;
 import com.ats.communication_admin.db.DatabaseHandler;
 import com.ats.communication_admin.interfaces.SuggestionInterface;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SuggestionFragment extends Fragment implements SuggestionInterface, View.OnClickListener {
 
     private RecyclerView rvSuggestion;
     DatabaseHandler db;
     SuggestionAdapter adapter;
-    private FloatingActionButton fabAddSuggestion;
+    private FloatingActionButton fabSearch;
+    private EditText edSearch;
+    private LinearLayout llSearch;
 
     ArrayList<SuggestionData> suggestionDataArray;
 
@@ -62,6 +46,9 @@ public class SuggestionFragment extends Fragment implements SuggestionInterface,
 
     private BroadcastReceiver mBroadcastReceiver;
 
+    int scrollDist = 0;
+    boolean isVisible = true;
+    static final float MINIMUM = 25;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +56,10 @@ public class SuggestionFragment extends Fragment implements SuggestionInterface,
         View view = inflater.inflate(R.layout.fragment_suggestion, container, false);
 
         rvSuggestion = view.findViewById(R.id.rvSuggestion);
-        fabAddSuggestion = view.findViewById(R.id.fabAddSuggestion);
-        fabAddSuggestion.setOnClickListener(this);
+        fabSearch = view.findViewById(R.id.fabSearch);
+        edSearch = view.findViewById(R.id.edSearch);
+        llSearch = view.findViewById(R.id.llSearch);
+        fabSearch.setOnClickListener(this);
 
         db = new DatabaseHandler(getActivity());
 
@@ -98,6 +87,23 @@ public class SuggestionFragment extends Fragment implements SuggestionInterface,
                 }
             }
         };
+
+        edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         return view;
     }
@@ -177,11 +183,16 @@ public class SuggestionFragment extends Fragment implements SuggestionInterface,
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.fabAddSuggestion) {
-            startActivity(new Intent(getContext(), AddSuggestionActivity.class));
+        if (view.getId() == R.id.fabSearch) {
+            //startActivity(new Intent(getContext(), AddSuggestionActivity.class));
+
+            if (llSearch.getVisibility()==View.VISIBLE){
+                llSearch.setVisibility(View.GONE);
+            }else if (llSearch.getVisibility()==View.GONE){
+                llSearch.setVisibility(View.VISIBLE);
+            }
+
         }
     }
-
-
 
 }
