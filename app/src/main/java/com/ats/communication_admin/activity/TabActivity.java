@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.ats.communication_admin.R;
+import com.ats.communication_admin.db.DatabaseHandler;
 import com.ats.communication_admin.fragment.MessagesFragment;
 import com.ats.communication_admin.fragment.NoticesFragment;
 import com.ats.communication_admin.fragment.NotificationsFragment;
@@ -26,6 +27,7 @@ public class TabActivity extends AppCompatActivity implements View.OnClickListen
     public TabLayout tabLayout;
     public ViewPager viewPager;
     private FloatingActionButton fab;
+    public static DatabaseHandler dbstatic;
 
     FragmentPagerAdapter adapterViewPager;
 
@@ -34,6 +36,7 @@ public class TabActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
+        dbstatic=new DatabaseHandler(this);
 
         tabLayout = findViewById(R.id.tab);
         viewPager = findViewById(R.id.viewpager);

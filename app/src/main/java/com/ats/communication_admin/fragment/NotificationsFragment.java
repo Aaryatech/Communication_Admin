@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.ats.communication_admin.R;
 import com.ats.communication_admin.activity.AddNotificationActivity;
+import com.ats.communication_admin.activity.InnerTabActivity;
+import com.ats.communication_admin.activity.TabActivity;
 import com.ats.communication_admin.adapter.FeedbackAdapter;
 import com.ats.communication_admin.adapter.NotificationAdapter;
 import com.ats.communication_admin.bean.ComplaintData;
@@ -32,6 +34,8 @@ import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import static com.ats.communication_admin.activity.TabActivity.dbstatic;
 
 public class NotificationsFragment extends Fragment implements NotificationsInterface, View.OnClickListener {
 
@@ -98,7 +102,11 @@ public class NotificationsFragment extends Fragment implements NotificationsInte
 
     @Override
     public void fragmentGetVisible() {
-        db.updateNotificationRead();
+
+        Log.e("NOTIFY","----------- VISIBLE");
+
+        //DatabaseHandler db = new DatabaseHandler(new TabActivity());
+        dbstatic.updateNotificationRead();
 
         notificationArray.clear();
         notificationArray = db.getAllSqliteNotifications();
